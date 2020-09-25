@@ -30,7 +30,6 @@ import org.hibernate.annotations.Where;
 @Table
 @Where(clause = "is_active = 'true'")
 @SQLDelete(sql = "UPDATE user SET is_Active = 'false' WHERE user_id = ?", check = ResultCheckStyle.COUNT)
-@SQLInsert(sql = "INSERT INTO ", check = ResultCheckStyle.COUNT)
 @Builder
 public class User implements Serializable {
 
