@@ -1,5 +1,4 @@
 server:
-#  port: 9090
   servlet:
     context-path: /app/api
 
@@ -12,6 +11,8 @@ spring:
     password:
     driver-class-name: org.h2.Driver
     platform: org.hibernate.dialect.H2Dialect
+    hikari:
+      maximum-pool-size: 100
   jpa:
     generate-ddl: true
     show-sql: true
@@ -46,6 +47,10 @@ management:
       enabled: true
   cloudfoundry:
     skip-ssl-validation: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
 
 # Additional Application Information Configuration
 info:
