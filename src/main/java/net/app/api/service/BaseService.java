@@ -7,10 +7,9 @@ import net.app.api.dto.ApiResponse;
 /**
  * Base service class which has basic functionality to entities.
  *
- * @param <E> entity
- * @param <D> dto
+ * @param <E>  entity
+ * @param <D>  dto
  * @param <ID> primary key type
- *
  * @author Anish Panthi
  * @since 09/18/2020
  */

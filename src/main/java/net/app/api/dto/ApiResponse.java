@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * Response POJO to be returned after performing DB operations, like SAVE, UPDATE and DELETE.
+ *
  * @author Anish Panthi
  */
 @Data

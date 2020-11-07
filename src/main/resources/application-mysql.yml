@@ -1,0 +1,52 @@
+server:
+  servlet:
+    context-path: /app/api
+  port: 8085
+
+spring:
+  application:
+    name: user-management
+  datasource:
+    url: jdbc:mysql://localhost:3306/user_account?serverTimezone=America/Chicago&createDatabaseIfNotExist=true&useLegacyDatatimeCode=false
+    username: root
+    password: root
+    hikari:
+      maximum-pool-size: 100
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+      use-new-id-generator-mappings: true
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        format_sql: true
+
+# Spring Actuator Configurations
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: /admin
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+# Additional Application Information Configuration
+info:
+  app:
+    name: ${spring.application.name}
+    description: User management RESTful web service
+    version: 1.0
+    swagger-url: http://localhost:${server.port}${server.servlet.context-path}/swagger-ui.html

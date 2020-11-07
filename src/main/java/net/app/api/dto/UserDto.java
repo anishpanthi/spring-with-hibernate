@@ -2,31 +2,24 @@ package net.app.api.dto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.ResultCheckStyle;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLInsert;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.annotations.Where;
 
 /**
+ * Data transfer object for entity class <code>User</code>
+ *
  * @author Anish Panthi
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UserDto implements Serializable {
 
-  private Long id;
+  private UUID id;
 
   private String firstName;
 
@@ -35,6 +28,12 @@ public class UserDto implements Serializable {
   private String email;
 
   private Boolean isActive;
+
+  private String accountName;
+
+  private String accountEmail;
+
+  private String accountNumber;
 
   private LocalDateTime createdOn;
 

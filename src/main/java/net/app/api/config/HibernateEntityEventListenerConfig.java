@@ -10,6 +10,8 @@ import org.hibernate.internal.SessionFactoryImpl;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * Defines and registers events or listeners for database operation.
+ *
  * @author Anish Panthi
  */
 @Configuration
@@ -20,14 +22,15 @@ public class HibernateEntityEventListenerConfig {
 
   private final SaveOrUpdateEventListener saveOrUpdateEventListener;
 
-  public HibernateEntityEventListenerConfig(SaveOrUpdateEventListener saveOrUpdateEventListener){
+  public HibernateEntityEventListenerConfig(SaveOrUpdateEventListener saveOrUpdateEventListener) {
     this.saveOrUpdateEventListener = saveOrUpdateEventListener;
   }
 
   @PostConstruct
-  protected void init(){
+  protected void init() {
     SessionFactoryImpl sessionFactory = entityManagerFactory.unwrap(SessionFactoryImpl.class);
-    EventListenerRegistry registry = sessionFactory.getServiceRegistry().getService(EventListenerRegistry.class);
+    EventListenerRegistry registry = sessionFactory.getServiceRegistry()
+        .getService(EventListenerRegistry.class);
     registry.getEventListenerGroup(EventType.POST_INSERT).appendListener(saveOrUpdateEventListener);
   }
 }

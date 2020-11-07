@@ -1,7 +1,7 @@
 package net.app.api.entity;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,14 +13,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLInsert;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.annotations.Where;
+import org.springframework.data.domain.Persistable;
 
 /**
+ * Entity class for table "USER".
+ *
  * @author Anish Panthi
  */
 @Data
@@ -28,22 +28,16 @@ import org.hibernate.annotations.Where;
 @AllArgsConstructor
 @Entity
 @Table
-@Where(clause = "is_active = 'true'")
+//@Where(clause = "is_active = 'true'")
 @SQLDelete(sql = "UPDATE user SET is_Active = 'false' WHERE user_id = ?", check = ResultCheckStyle.COUNT)
 @Builder
-public class User implements Serializable {
+public class User implements Persistable<UUID> {
 
   @Id
-  @GeneratedValue(generator = "User_SequenceStyleGenerator")
-  @GenericGenerator(name = "User_SequenceStyleGenerator",
-      strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-      parameters = {
-          @Parameter(name = "sequence_name", value = "User_Seq"),
-          @Parameter(name = "optimizer", value = "hilo"),
-          @Parameter(name = "initial_value", value = "1"),
-          @Parameter(name = "increment_size", value = "1")})
+  @GeneratedValue(generator = "uuid2")
+  @GenericGenerator(name = "uuid2", strategy = "uuid2")
   @Column(name = "USER_ID")
-  private Long id;
+  private UUID id;
 
   @Column(name = "FIRST_NM")
   private String firstName;
@@ -57,6 +51,15 @@ public class User implements Serializable {
   @Column(name = "IS_ACTIVE")
   private Boolean isActive;
 
+  @Column(name = "ACCOUNT_NM")
+  private String accountName;
+
+  @Column(name = "ACCOUNT_EMAIL")
+  private String accountEmail;
+
+  @Column(name = "ACCOUNT_NUM")
+  private String accountNumber;
+
   @Column(name = "CREATED_ON")
   @CreationTimestamp
   private LocalDateTime createdOn;
@@ -64,4 +67,14 @@ public class User implements Serializable {
   @Column(name = "UPDATED_ON")
   @UpdateTimestamp
   private LocalDateTime updatedOn;
+
+  /**
+   * Returns if the {@code Persistable} is new or was persisted already.
+   *
+   * @return if {@literal true} the object is new.
+   */
+  @Override
+  public boolean isNew() {
+    return true;
+  }
 }
