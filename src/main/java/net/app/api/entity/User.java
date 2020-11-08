@@ -16,6 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 import org.springframework.data.domain.Persistable;
 
 /**
@@ -28,8 +29,10 @@ import org.springframework.data.domain.Persistable;
 @AllArgsConstructor
 @Entity
 @Table
-//@Where(clause = "is_active = 'true'")
-@SQLDelete(sql = "UPDATE user SET is_Active = 'false' WHERE user_id = ?", check = ResultCheckStyle.COUNT)
+//@Where(clause = "is_active = 'true'")   // Uncomment this if database is H2 and comment line 33
+@Where(clause = "is_active = '1'")        // Uncomment this if database is MySQL and comment line 32
+//@SQLDelete(sql = "UPDATE user SET is_Active = 'false' WHERE user_id = ?", check = ResultCheckStyle.COUNT)   // Uncomment this if database is H2 and comment line 35
+@SQLDelete(sql = "UPDATE user SET is_Active = '0' WHERE user_id = ?", check = ResultCheckStyle.COUNT)         // Uncomment this if database is MySQL and comment line 34
 @Builder
 public class User implements Persistable<UUID> {
 
