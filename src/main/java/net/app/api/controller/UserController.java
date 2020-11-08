@@ -3,6 +3,7 @@ package net.app.api.controller;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.app.api.dto.ApiResponse;
 import net.app.api.dto.UserDto;
@@ -28,13 +29,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Slf4j
+@RequiredArgsConstructor
 public class UserController {
 
   private final UserService userService;
-
-  public UserController(UserService userService) {
-    this.userService = userService;
-  }
 
   /**
    * Endpoint to return all users.

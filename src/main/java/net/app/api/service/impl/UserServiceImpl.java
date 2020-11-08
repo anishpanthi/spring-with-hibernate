@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import net.app.api.dto.ApiResponse;
 import net.app.api.dto.UserDto;
 import net.app.api.entity.User;
@@ -22,13 +23,10 @@ import org.springframework.stereotype.Service;
  * @author Anish Panthi
  */
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
-
-  public UserServiceImpl(UserRepository userRepository) {
-    this.userRepository = userRepository;
-  }
 
   /**
    * Gets single entity.
